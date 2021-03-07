@@ -3,7 +3,7 @@ require("chromedriver");
 let wd = require("selenium-webdriver");
 let browser = new wd.Builder().forBrowser('chrome').build();
 let matchId = 33668;
-let innings = 1;
+let innings = 2;
 let batsmenColumns = ["playerName", "out", "runs", "ballsPlayed", "fours", "sixes", "strikeRate"];
 let bowlerColumns = ["playerName", "Overs", "Matches", "Runs", "Wickets", "noBalls", "Wide", "Eco"];
 
@@ -31,17 +31,19 @@ async function main() {
     }
     console.log(innings1Batsmen);
     let bowlerRows = await tables[1].findElements(wd.By.css(".cb-col.cb-col-100.cb-scrd-itms"));
+    //console.log(bowlerRows.length);
     for( let i=0;i<bowlerRows.length;i++){
-        let columns = await bowlerRows[i].findElements(wd.By.css("div"));
-        let data = {};
-        for(j in columns){
+        let columns2 = await bowlerRows[i].findElements(wd.By.css("div"));
+        let data2 = {};
+        //console.log(columns.length);
+        for(j in columns2){
             if(j!=2){
-                data[bowlerColumns[j]] = await columns[j].getAttribute("innerText");
+                data2[bowlerColumns[j]] = await columns2[j].getAttribute("innerText");
             }
         }
-        inningsBowlers.push(data);
+        inningsBowlers.push(data2);
     }
-    console.log(inningsBowlers);
+     console.log(inningsBowlers);
 }
 
 main();
